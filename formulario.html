@@ -6,8 +6,12 @@
     <title>Formulario de Soporte Técnico - HETC</title>
     <link rel="stylesheet" href="form-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script>
+        function onSubmit(token) {
+            document.getElementById("demo-form").submit();
+        }
+    </script>
 </head>
 <body>
 <div class="container">
@@ -71,7 +75,10 @@
             <div class="error" id="attachmentError"></div>
         </div>
 
-        <div class="g-recaptcha" data-sitekey="tu_clave_publica_recaptcha"></div>
+        <button class="g-recaptcha"
+                data-sitekey="6LdLiUoqAAAAAN8did-SK_4HjKU-p2oysyMxxZ2l"
+                data-callback='onSubmit'
+                data-action='submit'>Submit</button>
 
         <div class="form-actions">
             <button type="submit">Enviar</button>
