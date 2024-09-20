@@ -3,127 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario de Contacto - HETC</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>Formulario de Soporte Técnico - HETC</title>
     <link rel="stylesheet" href="form-styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
-    <script>
-        function validarFormulario() {
-            const nombres = document.getElementById('nombres').value;
-            const apellidos = document.getElementById('apellidos').value;
-            const correo = document.getElementById('correo').value;
-            const telefono = document.getElementById('telefono').value;
-            const mensaje = document.getElementById('mensaje').value;
-
-            if (nombres.trim() === "") {
-                alert("Por favor, ingrese su nombre.");
-                return false;
-            }
-
-            if (apellidos.trim() === "") {
-                alert("Por favor, ingrese su apellido.");
-                return false;
-            }
-
-            const correoRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!correoRegex.test(correo)) {
-                alert("Por favor, ingrese un correo electrónico válido.");
-                return false;
-            }
-
-            const telefonoRegex = /^[0-9]{10}$/;
-            if (!telefonoRegex.test(telefono)) {
-                alert("Por favor, ingrese un número de teléfono válido (10 dígitos).");
-                return false;
-            }
-
-            if (mensaje.trim() === "") {
-                alert("Por favor, ingrese su mensaje.");
-                return false;
-            }
-
-            return true;
-        }
-
-        document.addEventListener("DOMContentLoaded", function() {
-            const input = document.querySelector("#telefono");
-            window.intlTelInput(input, {
-                initialCountry: "auto",
-                geoIpLookup: function(callback) {
-                    fetch("https://ipinfo.io?token=YOUR_TOKEN_HERE")
-                        .then(response => response.json())
-                        .then(data => callback(data.country))
-                        .catch(() => callback("us"));
-                },
-                utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
-            });
-        });
-    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
-<header>
-    <h1>Formulario de Contacto - HETC</h1>
-</header>
-<nav>
-    <ul>
-        <li><a href="index.html"><i class="fas fa-home"></i> Inicio</a></li>
-        <li><a href="soporte.html"><i class="fas fa-headset"></i> Soporte</a></li>
-        <li><a href="recursos.html"><i class="fas fa-book"></i> Recursos</a></li>
-        <li><a href="servicios.html"><i class="fas fa-clipboard-list"></i> Servicios</a></li>
-        <li><a href="perfil.html"><i class="fas fa-user"></i> Mi Perfil</a></li>
-    </ul>
-</nav>
-<main>
-    <section id="formulario-contacto">
-        <h2>Solicitar Atención Especializada</h2>
-        <form onsubmit="return validarFormulario()">
-            <div class="form-group">
-                <div class="input-container">
-                    <input type="text" id="nombres" name="nombres" required>
-                    <label for="nombres">Nombres</label>
-                </div>
-            </div>
+<div class="container">
+    <h1>Soporte Técnico HETC</h1>
+    <form id="supportForm" enctype="multipart/form-data">
+        <div class="form-group">
+            <input type="text" id="fullName" name="fullName" required aria-required="true" placeholder=" ">
+            <label for="fullName">Nombre completo *</label>
+            <div class="error" id="fullNameError"></div>
+        </div>
 
-            <div class="form-group">
-                <div class="input-container">
-                    <input type="text" id="apellidos" name="apellidos" required>
-                    <label for="apellidos">Apellidos</label>
-                </div>
-            </div>
+        <div class="form-group">
+            <input type="email" id="email" name="email" required aria-required="true" placeholder=" ">
+            <label for="email">Correo electrónico *</label>
+            <div class="error" id="emailError"></div>
+        </div>
 
-            <div class="form-group">
-                <div class="input-container">
-                    <input type="email" id="correo" name="correo" required>
-                    <label for="correo">Correo Electrónico</label>
-                </div>
-            </div>
+        <div class="form-group">
+            <input type="tel" id="phone" name="phone" placeholder="Número de teléfono" />
+            <span class="error" id="phoneError"></span>
+        </div>
 
-            <div class="form-group">
-                <label for="telefono">Celular</label>
-                <input type="tel" id="telefono" name="telefono" required>
-            </div>
 
-            <div class="form-group">
-                <div class="input-container">
-                    <textarea id="mensaje" name="mensaje" required></textarea>
-                    <label for="mensaje">Mensaje</label>
-                </div>
-            </div>
+        <div class="form-group">
+            <select id="serviceType" name="serviceType" required aria-required="true">
+                <option value="" disabled selected>Seleccione un servicio</option>
+                <option value="support">Soporte Técnico</option>
+                <option value="maintenance">Mantenimiento Preventivo</option>
+                <option value="consulting">Consultoría</option>
+                <option value="other">Otros</option>
+            </select>
+            <label for="serviceType">Tipo de servicio *</label>
+            <div class="error" id="serviceTypeError"></div>
+        </div>
 
-            <button type="submit" class="cta-button">Enviar</button>
-        </form>
-    </section>
-</main>
-<footer>
-    <p>&copy; 2024 HETC - High Efficiency Technology Corporation</p>
-    <div class="social-icons">
-        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-    </div>
-</footer>
+        <div class="form-group">
+            <textarea id="description" name="description" rows="4" required aria-required="true" placeholder=" "></textarea>
+            <label for="description">Descripción del problema o solicitud *</label>
+            <div class="error" id="descriptionError"></div>
+        </div>
+
+        <div class="form-group">
+            <input type="date" id="preferredDate" name="preferredDate" aria-required="false">
+            <label for="preferredDate">Fecha preferida para atención</label>
+        </div>
+
+        <div class="form-group">
+            <select id="contactMethod" name="contactMethod" required aria-required="true">
+                <option value="" disabled selected>Seleccione un método</option>
+                <option value="phone">Teléfono</option>
+                <option value="email">Correo electrónico</option>
+                <option value="whatsapp">WhatsApp</option>
+            </select>
+            <label for="contactMethod">Método de contacto preferido *</label>
+            <div class="error" id="contactMethodError"></div>
+        </div>
+
+        <div class="form-group file-input">
+            <input type="file" id="attachment" name="attachment" accept=".pdf,.jpg,.jpeg,.png" aria-required="false">
+            <label for="attachment" class="file-input-label">Adjuntar archivo (Max. 5MB)</label>
+            <div class="error" id="attachmentError"></div>
+        </div>
+
+        <div class="g-recaptcha" data-sitekey="tu_clave_publica_recaptcha"></div>
+
+        <div class="form-actions">
+            <button type="submit">Enviar</button>
+            <button type="reset">Limpiar</button>
+        </div>
+    </form>
+</div>
+<script src="script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 </body>
 </html>
