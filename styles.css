@@ -172,7 +172,7 @@ footer {
     }
 
     nav ul li {
-        margin: 10px 0;
+        margin: 15px 0;
     }
 
     nav ul li a {
@@ -180,10 +180,65 @@ footer {
     }
 
     main {
-        padding: 10px;
+        padding: 15px;
     }
 
     section {
         padding: 20px;
+    }
+}
+
+/* Solución específica para el margen superior de los iconos */
+i.fa-file-invoice {
+    margin-top: 10px;
+}
+
+/* Aplicar margen superior a los iconos dentro de botones o secciones */
+button i, .btn i, section i {
+    margin-top: 15px; /* Ajusta según sea necesario */
+}
+
+/* Estilos para la página de soporte */
+.soporte-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.soporte-item {
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 6px var(--shadow-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.soporte-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px var(--shadow-color);
+}
+
+.soporte-item i {
+    font-size: 2.5em;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.soporte-item h3 {
+    color: var(--tertiary-color);
+    margin-bottom: 10px;
+}
+
+.phone-number {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--accent-color);
+}
+
+@media (max-width: 768px) {
+    .soporte-grid {
+        grid-template-columns: 1fr;
     }
 }
