@@ -3,6 +3,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const fileInput = document.getElementById('attachment');
     const fileInputLabel = document.querySelector('.file-input-label');
     const formFields = document.querySelectorAll('input, select, textarea');
+    const phoneInputField = document.querySelector("#phone");
+    const phoneInput = window.intlTelInput(phoneInputField, {
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+    });
 
     // Manejar el envío del formulario
     form.addEventListener('submit', function(e) {
@@ -101,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function isValidPhone(phone) {
-        return /^\+?[\d\s()-]{7,}$/.test(phone);
+        return phoneInput.isValidNumber();
     }
 
     function showError(id, message) {
@@ -116,9 +120,5 @@ document.addEventListener('DOMContentLoaded', function() {
         errorElement.style.display = 'none';
     }
 
-    function resetFileInput() {
-        fileInput.value = '';
-        fileInputLabel.textContent = 'Adjuntar archivo (Max. 5MB)';
-    }
-});
+    function resetFileInput()
 
